@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Balises essentielles -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata Léo - Jus naturels, yaourts maison & bien-être</title>
+    <meta name="description" content="Découvrez Tata Léo : des jus naturels, yaourts maison et compléments alimentaires faits avec amour au cœur du Congo. Des produits authentiques, sains et locaux pour sublimer votre quotidien.">
+    
+    <!-- Contrôle de l'indexation -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- SEO local & accessibilité -->
+    <meta name="author" content="Tata Léo">
+    <meta name="theme-color" content="#f4a261"> <!-- couleur de thème sur mobile -->
+    <meta name="language" content="fr">
+    <meta name="google" content="notranslate"> <!-- si tu veux éviter la traduction auto -->
+    
+    <!-- Favicon et manifest -->
+    <link rel="icon" type="image/png" sizes="96x96" href="mon_favicon/favicon-96x96.png">
+    <link rel="icon" type="image/svg+xml" href="mon_favicon/favicon.svg">
+    <link rel="shortcut icon" href="mon_favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="mon_favicon/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="Tata Léo">
+    <link rel="manifest" href="mon_favicon/site.webmanifest">
+    
+    <!-- 🔗 Prévisualisation enrichie (Open Graph) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tata-leo.com">
+    <meta property="og:title" content="Tata Léo – Jus naturels et bien-être made in Congo">
+    <meta property="og:description" content="Découvrez les jus naturels, yaourts maison et produits de bien-être faits avec amour par Tata Léo à Kinshasa.">
+    <meta property="og:image" content="https://tata-leo.com/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- 🐦 Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tata-leo.com">
+    <meta name="twitter:title" content="Tata Léo – Produits naturels faits maison">
+    <meta name="twitter:description" content="Jus naturels, yaourts et compléments santé made in Congo. L’univers sain et local de Tata Léo.">
+    <meta name="twitter:image" content="https://tata-leo.com/images/og-image.jpg">
+    
+    <!-- Fonts & styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Données structurées JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Tata Léo",
+            "image": "https://tata-leo.com/images/logo.png",
+            "url": "https://tata-leo.com",
+            "logo": "https://tata-leo.com/images/logo.png",
+            "description": "Tata Léo propose des jus naturels, des yaourts maison et des compléments alimentaires fabriqués au Congo avec des ingrédients locaux et sains.",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Kinshasa",
+                "addressCountry": "CD"
+            },
+            "telephone": "+243000000000",
+            "sameAs": [
+                "https://www.instagram.com/tata.leo",
+                "https://wa.me/243000000000"
+            ]
+        }
+    </script>
+</head>
+<body>
+
+  <!-- 🌟 HEADER -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Tata Léo</h1>
+      <nav class="nav">
+        <div class="nav-links" id="navLinks">
+          <a href="#hero" onclick="toggleMenu()">🏠 Accueil</a>
+          <a href="#a-propos" onclick="toggleMenu()">👩‍🍳 À propos</a>
+          <a href="#produits" onclick="toggleMenu()">🧃 Produits</a>
+          <a href="#temoignages" onclick="toggleMenu()">💬 Témoignages</a>
+          <a href="#galerie" onclick="toggleMenu()">📸 Galerie</a>
+          <a href="#blog" onclick="toggleMenu()">🗣️ Blog</a>
+        </div>
+        <div class="burger" id="burger" onclick="toggleMenu()">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 🎯 HERO SECTION -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <h2 class="hero-title">Des saveurs naturelles<br>faites avec amour ❤️</h2>
+      <p class="hero-subtitle">Jus de fruits frais, yaourts maison et douceur artisanale.</p>
+      <div class="hero-buttons">
+        <a href="https://wa.me/243978770662?text=Bonjour Tata Léo, j'aimerais passer une commande🙂" class="btn btn-whatsapp" target="_blank">Commander sur WhatsApp</a>
+        <a href="https://instagram.com/" class="btn btn-insta" target="_blank">Voir Instagram</a>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="assets/jus-naturel.jpeg" alt="Jus naturel" />
+    </div>
+  </section>
+  
+  <section id="a-propos" class="about">
+    <div class="about-container">
+      <div class="about-image">
+        <img src="assets/léo.jpeg" alt="Tata Léo préparant ses produits">
+      </div>
+      <div class="about-text">
+        <h2>À propos de Tata Léo</h2>
+        <p><strong>Chez Tata Léo, la richesse de notre terre congolaise est notre plus grande force.</strong></p>
+        <p>
+          Nous sublimons les trésors que la nature nous offre — fruits, plantes et bien plus encore — pour créer des produits authentiques, sains et inspirés.
+        </p>
+        <p>
+          Chaque recette est un pont entre <strong>nos traditions locales</strong> et <strong>l’innovation artisanale</strong>, pensée pour le bien-être de toutes les générations.
+        </p>
+        <p>
+          <strong>Tata Léo</strong>, c’est bien plus qu’un nom :<br>
+          c’est une vision, un engagement, et une invitation à savourer le meilleur de chez nous.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <section id="produits" class="products">
+    <div class="section-title">
+      <h2>Nos Produits</h2>
+      <p>Naturellement bons, faits avec amour à Kinshasa.</p>
+    </div>
+    
+    <!-- CARD 1 -->
+    <div class="product-wrapper">
+      <div class="product-img">
+        <img src="assets/jus.jpeg" alt="Jus naturel">
+      </div>
+      <div class="product-info">
+        <div class="product-text">
+          <h1>Jus naturels</h1>
+          <h2>100% pur fruit</h2>
+          <p>Ananas, mangue, gingembre, bissap... Nos jus sont extraits à froid, sans sucre ajouté ni conservateurs.</p>
+        </div>
+        <div class="product-price-btn">
+          <p><span>Disponible</span></p>
+          <a href="https://wa.me/243978770662?text=Bonjour Tata Léo, j'aimerais passer une commande de Jus Naturel🙂" target="_blank">
+            <button type="button">Commander</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CARD 2 -->
+    <div class="product-wrapper reverse">
+      <div class="product-img">
+        <img src="assets/yaourt.jpeg" alt="Yaourt maison">
+      </div>
+      <div class="product-info">
+        <div class="product-text">
+          <h1>Yaourts maison</h1>
+          <h2>Nature & fruits</h2>
+          <p>Préparés artisanalement, nos yaourts sont crémeux, savoureux, et riches en probiotiques naturels.</p>
+        </div>
+        <div class="product-price-btn">
+          <p><span>Disponible</span></p>
+          <a href="https://wa.me/243978770662?text=Bonjour Tata Léo, j'aimerais passer une commande de Yaourt Nature🙂" target="_blank">
+            <button type="button">Commander</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="nutriskin" class="highlight-product">
+    <div class="highlight-container">
+      <div class="highlight-image">
+        <img src="assets/complement.jpeg" alt="NutriSkin Complément Alimentaire">
+      </div>
+      <div class="highlight-content">
+        <h2 class="highlight-title">🌿 Complément Alimentaire</h2>
+        <h1 class="highlight-name">NutriSkin – Beauté & Bien-être</h1>
+        <p class="highlight-desc">
+          NutriSkin est une gamme naturelle de compléments alimentaires pensée pour révéler votre beauté intérieure et extérieure.
+          <br><br>
+          💧 <strong>Peau éclatante</strong> et sans imperfections<br>
+          🔥 <strong>Brûleur de graisses</strong> pour ventre plat & perte de poids<br>
+          🍽️ <strong>Prise de poids</strong> saine et équilibrée
+          <br><br>
+          Formulée à base de plantes locales, de super-aliments et d’actifs soigneusement sélectionnés, NutriSkin purifie, régule et nourrit votre corps en douceur.
+          <br><br>
+          Prenez soin de vous, selon vos besoins, et à votre rythme.
+        </p>
+        <p class="highlight-price">À partir de <strong>15$</strong></p>
+        <a href="https://wa.me/243978770662?text=Bonjour Tata Léo, j'aimerais passer une commande de NutriSkin🙂" class="highlight-btn" target="_blank">Commander sur WhatsApp</a>
+      </div>
+    </div>
+  </section>
+  
+  <section id="temoignages" class="testimonials">
+    <div class="section-title">
+      <h2>Ce que nos clients disent</h2>
+      <p>Ils ont goûté, ils ont adoré !</p>
+    </div>
+    
+    <!-- Section Admin -->
+    <div class="admin-section">
+      <button class="testimonial-admin-toggle" onclick="toggleTestimonialAdmin()">
+        <i class="fas fa-plus"></i> Ajouter un témoignage
+      </button>
+      
+      <form class="admin-form" id="temoignage-form">
+        <div class="form-group">
+          <label for="client-nom">Nom du client</label>
+          <input type="text" id="client-nom" placeholder="Ex : Dylan" required>
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="client-avis">Votre témoignage</label>
+          <textarea id="client-avis" placeholder="Partagez votre expérience avec nous..." required></textarea>
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="client-photo">URL de la photo (optionnel)</label>
+          <input type="url" id="client-photo" placeholder="https://exemple.com/photo.jpg">
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="client-note">Note (1 à 5 étoiles)</label>
+          <select id="client-note" required>
+            <option value="">Sélectionnez une note</option>
+            <option value="5">★★★★★ - Excellent</option>
+            <option value="4">★★★★☆ - Très bien</option>
+            <option value="3">★★★☆☆ - Bien</option>
+            <option value="2">★★☆☆☆ - Moyen</option>
+            <option value="1">★☆☆☆☆ - Décevant</option>
+          </select>
+          <div class="form-error"></div>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Envoyer le témoignage
+        </button>
+      </form>
+    </div>
+    
+    <!-- Zone de chargement -->
+    <div id="temoignages-loading" class="loading" style="display: none;">
+      <i class="fas fa-spinner fa-spin"></i> Chargement des témoignages...
+    </div>
+    
+    <!-- Zone d'erreur -->
+    <div id="temoignages-error" class="error" style="display: none;">
+      <i class="fas fa-exclamation-triangle"></i> <span id="temoignages-error-message"></span>
+    </div>
+    
+    <!-- Conteneur des témoignages -->
+    <div id="temoignages-list" class="testimonial-container">
+      <!-- Les témoignages seront injectés ici -->
+    </div>
+  </section>
+  
+  <section id="galerie" class="instagram-gallery">
+    <div class="gallery-header">
+      <h2>✨ Suivez Tata Léo sur Instagram</h2>
+      <p>@tata_leo_officiel</p>
+      <a href="https://www.instagram.com/tata_leo_officiel" target="_blank" class="btn-follow">
+        Voir plus sur Instagram
+      </a>
+    </div>
+    
+    <div class="gallery-grid">
+      <img src="assets/galerie-1.jpeg" alt="Jus naturel">
+      <img src="assets/galerie-preparation.jpeg" alt="Préparation de jus naturel">
+      <img src="assets/galerie-yaourt.jpeg" alt="Tata Léo Yaourt">
+      <img src="https://i.postimg.cc/P5dcFP9J/gal4.jpg" alt="Préparation maison">
+      <img src="https://i.postimg.cc/0yJCDLwt/gal5.jpg" alt="Client satisfait">
+      <img src="assets/complement.jpeg" alt="Compléments NutriSkin">
+    </div>
+  </section>
+  
+  <div id="blog" class="site__wrapper">
+    <div class="blog-header">
+      <h2>Blog Culinaire</h2>
+      <p>Découvrez nos recettes et conseils alimentaires</p>
+    </div>
+    
+    <!-- Section Admin -->
+    <div class="admin-section">
+      <button class="blog-admin-toggle" onclick="toggleBlogAdmin()">
+        <i class="fas fa-plus"></i> Ajouter un article
+      </button>
+      
+      <form class="admin-form" id="article-form">
+        <div class="form-group">
+          <label for="titre">Titre de l'article</label>
+          <input type="text" id="titre" required>
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="contenu">Contenu complet</label>
+          <textarea id="contenu" placeholder="Contenu détaillé de l'article..." required></textarea>
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="auteur">Nom de l'auteur</label>
+          <input type="text" id="auteur" placeholder="Ex: Dylan" required>
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="image-url">URL de l'image</label>
+          <input type="url" id="image-url" placeholder="https://example.com/image.jpg">
+          <div class="form-error"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="categorie">Catégorie</label>
+          <select id="categorie" required>
+            <option value="">Choisir une catégorie</option>
+            <option value="Recettes">Recettes</option>
+            <option value="Conseils">Conseils</option>
+            <option value="Produits">Produits</option>
+            <option value="Nutrition">Nutrition</option>
+          </select>
+          <div class="form-error"></div>
+        </div>
+        
+        <button type="submit" class="submit-btn">
+          <i class="fas fa-paper-plane"></i> Publier l'article
+        </button>
+      </form>
+    </div>
+    
+    <!-- Zone de chargement -->
+    <div id="loading" class="loading" style="display: none;">
+      <i class="fas fa-spinner fa-spin"></i> Chargement des articles...
+    </div>
+    
+    <!-- Zone d'erreur -->
+    <div id="error" class="error" style="display: none;">
+      <i class="fas fa-exclamation-triangle"></i> <span id="error-message"></span>
+    </div>
+    
+    <!-- Grille des articles -->
+    <div class="grid-container" id="blog-container">
+      <!-- Les articles seront ajoutés ici dynamiquement -->
+    </div>
+  </div>
+  
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Tata Léo</h3>
+        <p>Le goût naturel, la tradition à cœur. 🌱</p>
+      </div>
+      
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#hero"><i class="fas fa-home"></i> Accueil</a></li>
+          <li><a href="#produits"><i class="fas fa-lemon"></i> Produits</a></li>
+          <li><a href="#temoignages"><i class="fas fa-comment-dots"></i> Témoignages</a></li>
+          <li><a href="#galerie"><i class="fas fa-camera"></i> Galerie</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fab fa-whatsapp"></i> WhatsApp : <a href="https://wa.me/243900000000">+243 900 000 000</a></p>
+        <p><i class="fab fa-instagram"></i> Instagram : <a href="https://instagram.com/tata_leo_officiel" target="_blank">@tata_leo_officiel</a></p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2025 Tata Léo. Tous droits réservés.</p>
+    </div>
+  </footer>
+  
+  <button id="scrollToTopBtn" title="Retour en haut">↑</button>
+  
+    <!-- Tous les Scripts -->
+    
+    <!-- Menu toogle -->
+    <script>
+        function toggleMenu() {
+          const nav = document.getElementById('navLinks');
+          nav.classList.toggle('active');
+        }
+    </script>
+    
+    <!-- Bouton ScrolltoTop -->
+    <script>
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+        
+        // Afficher le bouton après avoir scrollé vers le bas
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 300) {
+            scrollToTopBtn.style.display = "block";
+          } else {
+            scrollToTopBtn.style.display = "none";
+          }
+        });
+        
+        // Remonter doucement en haut de la page
+        scrollToTopBtn.addEventListener("click", () => {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+          });
+        });
+    </script>
+    
+    <!-- Script unifié Blog + Témoignages CORRIGÉ -->
+
+    <script>
+        // Configuration Supabase partagée
+        const SUPABASE_URL = 'https://pbyghuwvqagkirkwcpda.supabase.co'
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWdodXd2cWFna2lya3djcGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NzYxNDQsImV4cCI6MjA2NTA1MjE0NH0.hfwb9xzsh4m3I1Qkf_SGY8VeTNEZDWliIzl4w8Frmfg'
+        
+        // Initialisation Supabase partagée
+        const { createClient } = supabase
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+        
+        // Cache partagé
+        const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+        
+        // Cache pour les articles
+        let articlesCache = null;
+        let lastArticlesCacheTime = null;
+        
+        // Cache pour les témoignages
+        let temoignagesCache = null;
+        let lastTemoignagesCacheTime = null;
+        
+        // Couleurs d'overlay pour les articles
+        const overlayColors = ['indigo', 'blue', 'green', 'purple'];
+        
+        // Avatars par défaut pour les témoignages
+        const defaultAvatars = [
+            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face',
+            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
+        ];
+        
+        // ========== FONCTIONS PARTAGÉES ==========
+        
+        // Système de notifications unifié
+        function showNotification(message, type = 'success') {
+            // Supprimer les notifications existantes
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notif => notif.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i> ${message}`;
+            
+            document.body.appendChild(notification);
+            
+            // Afficher avec animation
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            // Masquer après 4 secondes
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+        
+        // Validation d'URL partagée
+        function isValidUrl(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+        
+        // Fonction de formatage de date partagée
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 0) return "Aujourd'hui";
+            if (diffDays === 1) return "Hier";
+            if (diffDays < 7) return `Il y a ${diffDays} jours`;
+            if (diffDays < 30) return `Il y a ${Math.floor(diffDays / 7)} semaine${Math.floor(diffDays / 7) > 1 ? 's' : ''}`;
+            
+            return date.toLocaleDateString('fr-FR', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        // ========== FONCTIONS BLOG ==========
+        
+        // Validation du formulaire blog
+        function validateBlogForm() {
+            const fields = [
+                { id: 'titre', message: 'Le titre est obligatoire' },
+                { id: 'contenu', message: 'Le contenu est obligatoire' },
+                { id: 'auteur', message: 'Le nom de l\'auteur est obligatoire' },
+                { id: 'categorie', message: 'Veuillez sélectionner une catégorie' }
+            ];
+            
+            let isValid = true;
+            
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element) {
+                    console.warn(`Élément ${field.id} non trouvé`);
+                    return;
+                }
+                
+                const formGroup = element.closest('.form-group');
+                const errorElement = formGroup ? formGroup.querySelector('.form-error') : null;
+                
+                if (!element.value.trim()) {
+                    if (formGroup) formGroup.classList.add('error');
+                    if (errorElement) errorElement.textContent = field.message;
+                    isValid = false;
+                } else {
+                    if (formGroup) formGroup.classList.remove('error');
+                    if (errorElement) errorElement.textContent = '';
+                }
+            });
+            
+            // Validation spéciale pour l'URL d'image
+            const imageUrl = document.getElementById('image-url');
+            if (imageUrl) {
+                const imageFormGroup = imageUrl.closest('.form-group');
+                const imageErrorElement = imageFormGroup ? imageFormGroup.querySelector('.form-error') : null;
+                
+                if (imageUrl.value && !isValidUrl(imageUrl.value)) {
+                    if (imageFormGroup) imageFormGroup.classList.add('error');
+                    if (imageErrorElement) imageErrorElement.textContent = 'URL d\'image invalide';
+                    isValid = false;
+                } else {
+                    if (imageFormGroup) imageFormGroup.classList.remove('error');
+                    if (imageErrorElement) imageErrorElement.textContent = '';
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Fonction pour basculer l'affichage du formulaire admin blog
+        function toggleBlogAdmin() {
+            const form = document.getElementById('article-form');
+            const button = document.querySelector('.blog-admin-toggle');
+            
+            if (!form || !button) {
+                console.error('Éléments du formulaire blog non trouvés');
+                return;
+            }
+            
+            if (form.classList.contains('active')) {
+                form.classList.remove('active');
+                button.innerHTML = '<i class="fas fa-plus"></i> Ajouter un article';
+                // Réinitialiser les erreurs de validation
+                form.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error');
+                    const errorEl = group.querySelector('.form-error');
+                    if (errorEl) errorEl.textContent = '';
+                });
+            } else {
+                form.classList.add('active');
+                button.innerHTML = '<i class="fas fa-times"></i> Fermer';
+            }
+        }
+        
+        // Fonction pour créer une carte d'article
+        function createArticleCard(article, index) {
+            const overlayClass = overlayColors[index % overlayColors.length];
+            const imageUrl = article.image_url || `https://picsum.photos/400/300?random=${article.id}`;
+            
+            // Limiter l'extrait à 150 caractères proprement
+            const excerpt = article.contenu.length > 150 
+                ? article.contenu.substring(0, 150).trim() + '...'
+                : article.contenu;
+            
+            return `
+                <div class="card" data-article-id="${article.id}">
+                    <div class="card__image">
+                        <img src="${imageUrl}" alt="${article.titre}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300/667eea/white?text=Image+indisponible'">
+                        <div class="card__overlay card__overlay--${overlayClass}">
+                            <div class="card__overlay-content">
+                                <ul class="card__meta">
+                                    <li><a href="#0"><i class="fa fa-tag"></i> ${article.categorie}</a></li>
+                                    <li><a href="#0"><i class="fa fa-clock-o"></i> ${formatDate(article.date_publication)}</a></li>
+                                </ul>
+                                <a href="#0" class="card__title">${article.titre}</a>
+                                <ul class="card__meta card__meta--last">
+                                    <li><a href="#0"><i class="fa fa-user"></i> ${article.auteur}</a></li>
+                                    <li><a href="#0"><i class="fa fa-share"></i> Partager</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card__content">
+                        <p class="card__excerpt">${excerpt}</p>
+                        <a href="#0" class="card__read-more">Lire la suite <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Fonction pour charger les articles depuis Supabase
+        async function chargerArticles(forceRefresh = false) {
+            // Vérifier le cache
+            if (!forceRefresh && articlesCache && lastArticlesCacheTime && 
+                (Date.now() - lastArticlesCacheTime) < CACHE_DURATION) {
+                afficherArticles(articlesCache);
+                return;
+            }
+            
+            try {
+                const loadingEl = document.getElementById('loading');
+                const errorEl = document.getElementById('error');
+                
+                if (loadingEl) loadingEl.style.display = 'block';
+                if (errorEl) errorEl.style.display = 'none';
+                
+                const { data, error } = await supabaseClient
+                    .from('articles')
+                    .select('*')
+                    .order('date_publication', { ascending: false });
+                
+                if (error) throw error;
+                
+                // Mettre à jour le cache
+                articlesCache = data;
+                lastArticlesCacheTime = Date.now();
+                
+                afficherArticles(data);
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des articles:', error);
+                const errorMessageEl = document.getElementById('error-message');
+                const errorEl = document.getElementById('error');
+                
+                if (errorMessageEl) {
+                    errorMessageEl.textContent = 'Impossible de charger les articles. Vérifiez votre connexion et réessayez.';
+                }
+                if (errorEl) errorEl.style.display = 'block';
+            } finally {
+                const loadingEl = document.getElementById('loading');
+                if (loadingEl) loadingEl.style.display = 'none';
+            }
+        }
+        
+        // Fonction pour afficher les articles
+        function afficherArticles(articles) {
+            const container = document.getElementById('blog-container');
+            if (!container) return;
+            
+            if (!articles || articles.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-newspaper" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e0;"></i>
+                        <h3>Aucun article publié</h3>
+                        <p>Soyez le premier à publier un article !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Utiliser DocumentFragment pour de meilleures performances
+            const fragment = document.createDocumentFragment();
+            const tempDiv = document.createElement('div');
+            
+            articles.forEach((article, index) => {
+                tempDiv.innerHTML = createArticleCard(article, index);
+                fragment.appendChild(tempDiv.firstElementChild);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(fragment);
+        }
+        
+        // Fonction pour ajouter un article à la liste sans recharger
+        function ajouterArticleALaListe(nouvelArticle) {
+            if (articlesCache) {
+                articlesCache.unshift(nouvelArticle);
+                afficherArticles(articlesCache);
+            }
+        }
+        
+        // ========== FONCTIONS TÉMOIGNAGES ==========
+        
+        // Validation du formulaire témoignage
+        function validateTestimonialForm() {
+            const fields = [
+                { id: 'client-nom', message: 'Le nom du client est obligatoire' },
+                { id: 'client-avis', message: 'Le témoignage est obligatoire' },
+                { id: 'client-note', message: 'Veuillez sélectionner une note' }
+            ];
+            
+            let isValid = true;
+            
+            fields.forEach(field => {
+                const element = document.getElementById(field.id);
+                if (!element) {
+                    console.warn(`Élément ${field.id} non trouvé`);
+                    return;
+                }
+                
+                const formGroup = element.closest('.form-group');
+                const errorElement = formGroup ? formGroup.querySelector('.form-error') : null;
+                
+                if (!element.value.trim()) {
+                    if (formGroup) formGroup.classList.add('error');
+                    if (errorElement) errorElement.textContent = field.message;
+                    isValid = false;
+                } else {
+                    if (formGroup) formGroup.classList.remove('error');
+                    if (errorElement) errorElement.textContent = '';
+                }
+            });
+            
+            // Validation spéciale pour l'URL de photo
+            const photoUrl = document.getElementById('client-photo');
+            if (photoUrl) {
+                const photoFormGroup = photoUrl.closest('.form-group');
+                const photoErrorElement = photoFormGroup ? photoFormGroup.querySelector('.form-error') : null;
+                
+                if (photoUrl.value && !isValidUrl(photoUrl.value)) {
+                    if (photoFormGroup) photoFormGroup.classList.add('error');
+                    if (photoErrorElement) photoErrorElement.textContent = 'URL de photo invalide';
+                    isValid = false;
+                } else {
+                    if (photoFormGroup) photoFormGroup.classList.remove('error');
+                    if (photoErrorElement) photoErrorElement.textContent = '';
+                }
+            }
+            
+            return isValid;
+        }
+        
+        // Fonction pour basculer l'affichage du formulaire admin témoignages
+        function toggleTestimonialAdmin() {
+            const form = document.getElementById('temoignage-form');
+            const button = document.querySelector('.testimonial-admin-toggle');
+            
+            if (!form || !button) {
+                console.error('Éléments du formulaire témoignage non trouvés');
+                return;
+            }
+            
+            if (form.classList.contains('active')) {
+                form.classList.remove('active');
+                button.innerHTML = '<i class="fas fa-plus"></i> Ajouter un témoignage';
+                // Réinitialiser les erreurs de validation
+                form.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error');
+                    const errorEl = group.querySelector('.form-error');
+                    if (errorEl) errorEl.textContent = '';
+                });
+            } else {
+                form.classList.add('active');
+                button.innerHTML = '<i class="fas fa-times"></i> Fermer';
+            }
+        }
+        
+        // Fonction pour générer les étoiles
+        function generateStars(rating) {
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    stars += '<span class="star">★</span>';
+                } else {
+                    stars += '<span class="star empty">☆</span>';
+                }
+            }
+            return stars;
+        }
+        
+        // Fonction pour créer une carte de témoignage
+        function createTestimonialCard(temoignage, index) {
+            const avatarUrl = temoignage.photo_url || defaultAvatars[index % defaultAvatars.length];
+            
+            return `
+                <div class="testimonial-card" data-testimonial-id="${temoignage.id}">
+                    <div class="testimonial-header">
+                        <img src="${avatarUrl}" alt="${temoignage.nom}" class="client-avatar" onerror="this.src='https://via.placeholder.com/60x60/667eea/white?text=${temoignage.nom.charAt(0)}'">
+                        <div class="client-info">
+                            <h4>${temoignage.nom}</h4>
+                            <div class="client-rating">
+                                ${generateStars(temoignage.note)}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-content">
+                        "${temoignage.avis}"
+                    </div>
+                    <div class="testimonial-date">
+                        ${formatDate(temoignage.date_creation)}
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Fonction pour charger les témoignages depuis Supabase
+        async function chargerTemoignages(forceRefresh = false) {
+            // Vérifier le cache
+            if (!forceRefresh && temoignagesCache && lastTemoignagesCacheTime && 
+                (Date.now() - lastTemoignagesCacheTime) < CACHE_DURATION) {
+                afficherTemoignages(temoignagesCache);
+                return;
+            }
+            
+            try {
+                const loadingEl = document.getElementById('temoignages-loading');
+                const errorEl = document.getElementById('temoignages-error');
+                
+                if (loadingEl) loadingEl.style.display = 'block';
+                if (errorEl) errorEl.style.display = 'none';
+                
+                const { data, error } = await supabaseClient
+                    .from('temoignages')
+                    .select('*')
+                    .order('date_creation', { ascending: false });
+                
+                if (error) throw error;
+                
+                // Mettre à jour le cache
+                temoignagesCache = data;
+                lastTemoignagesCacheTime = Date.now();
+                
+                afficherTemoignages(data);
+                
+            } catch (error) {
+                console.error('Erreur lors du chargement des témoignages:', error);
+                const errorMessageEl = document.getElementById('temoignages-error-message');
+                const errorEl = document.getElementById('temoignages-error');
+                
+                if (errorMessageEl) {
+                    errorMessageEl.textContent = 'Impossible de charger les témoignages. Vérifiez votre connexion et réessayez.';
+                }
+                if (errorEl) errorEl.style.display = 'block';
+            } finally {
+                const loadingEl = document.getElementById('temoignages-loading');
+                if (loadingEl) loadingEl.style.display = 'none';
+            }
+        }
+        
+        // Fonction pour afficher les témoignages
+        function afficherTemoignages(temoignages) {
+            const container = document.getElementById('temoignages-list');
+            if (!container) return;
+            
+            if (!temoignages || temoignages.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e0;"></i>
+                        <h3>Aucun témoignage pour le moment</h3>
+                        <p>Soyez le premier à partager votre expérience !</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Utiliser DocumentFragment pour de meilleures performances
+            const fragment = document.createDocumentFragment();
+            const tempDiv = document.createElement('div');
+            
+            temoignages.forEach((temoignage, index) => {
+                tempDiv.innerHTML = createTestimonialCard(temoignage, index);
+                fragment.appendChild(tempDiv.firstElementChild);
+            });
+            
+            container.innerHTML = '';
+            container.appendChild(fragment);
+        }
+        
+        // Fonction pour ajouter un témoignage à la liste sans recharger
+        function ajouterTemoignageALaListe(nouveauTemoignage) {
+            if (temoignagesCache) {
+                temoignagesCache.unshift(nouveauTemoignage);
+                afficherTemoignages(temoignagesCache);
+            }
+        }
+        
+        // ========== INITIALISATION ET EVENT LISTENERS ==========
+        
+        // Gestion du formulaire d'ajout d'article
+        function initBlogForm() {
+            const blogForm = document.getElementById('article-form');
+            if (!blogForm) {
+                console.warn('Formulaire article non trouvé');
+                return;
+            }
+            
+            blogForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                console.log('Soumission du formulaire blog');
+                
+                if (!validateBlogForm()) {
+                    showNotification('Veuillez corriger les erreurs dans le formulaire', 'error');
+                    return;
+                }
+                
+                const submitBtn = blogForm.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                try {
+                    // Désactiver le bouton pendant l'envoi
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+                    
+                    const formData = {
+                        titre: document.getElementById('titre').value.trim(),
+                        contenu: document.getElementById('contenu').value.trim(),
+                        auteur: document.getElementById('auteur').value.trim(),
+                        image_url: document.getElementById('image-url').value.trim() || null,
+                        categorie: document.getElementById('categorie').value,
+                        date_publication: new Date().toISOString()
+                    };
+                    
+                    console.log('Données à envoyer:', formData);
+                    
+                    const { data, error } = await supabaseClient
+                        .from('articles')
+                        .insert([formData])
+                        .select()
+                        .single();
+                    
+                    if (error) throw error;
+                    
+                    showNotification('Article publié avec succès !', 'success');
+                    blogForm.reset();
+                    toggleBlogAdmin();
+                    
+                    // Ajouter l'article à la liste sans recharger toute la page
+                    ajouterArticleALaListe(data);
+                    
+                } catch (error) {
+                    console.error('Erreur lors de la publication:', error);
+                    showNotification('Erreur lors de la publication. Réessayez.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        }
+        
+        // Gestion du formulaire d'ajout de témoignage
+        function initTestimonialForm() {
+            const testimonialForm = document.getElementById('temoignage-form');
+            if (!testimonialForm) {
+                console.warn('Formulaire témoignage non trouvé');
+                return;
+            }
+            
+            testimonialForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                console.log('Soumission du formulaire témoignage');
+                
+                if (!validateTestimonialForm()) {
+                    showNotification('Veuillez corriger les erreurs dans le formulaire', 'error');
+                    return;
+                }
+                
+                const submitBtn = testimonialForm.querySelector('.submit-btn');
+                const originalText = submitBtn.innerHTML;
+                
+                try {
+                    // Désactiver le bouton pendant l'envoi
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+                    
+                    const formData = {
+                        nom: document.getElementById('client-nom').value.trim(),
+                        avis: document.getElementById('client-avis').value.trim(),
+                        photo_url: document.getElementById('client-photo').value.trim() || null,
+                        note: parseInt(document.getElementById('client-note').value),
+                        date_creation: new Date().toISOString()
+                    };
+                    
+                    console.log('Données témoignage à envoyer:', formData);
+                    
+                    const { data, error } = await supabaseClient
+                        .from('temoignages')
+                        .insert([formData])
+                        .select()
+                        .single();
+                    
+                    if (error) throw error;
+                    
+                    showNotification('Témoignage ajouté avec succès ! Merci pour votre retour.', 'success');
+                    testimonialForm.reset();
+                    toggleTestimonialAdmin();
+                    
+                    // Ajouter le témoignage à la liste sans recharger toute la page
+                    ajouterTemoignageALaListe(data);
+                    
+                } catch (error) {
+                    console.error('Erreur lors de l\'ajout du témoignage:', error);
+                    showNotification('Erreur lors de l\'envoi. Réessayez.', 'error');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        }
+        
+        // Gestion des erreurs d'images
+        document.addEventListener('error', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.target.src = 'https://via.placeholder.com/400x300/667eea/white?text=Image+indisponible';
+            }
+        }, true);
+        
+        // Chargement initial et initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM chargé, initialisation...');
+            
+            // Charger les données
+            chargerArticles();
+            chargerTemoignages();
+            
+            // Initialiser les formulaires
+            initBlogForm();
+            initTestimonialForm();
+            
+            console.log('Initialisation terminée');
+        });
+        
+        // Rafraîchissement périodique (optionnel)
+        setInterval(() => {
+            if (document.visibilityState === 'visible') {
+                chargerArticles();
+                chargerTemoignages();
+            }
+        }, 5 * 60 * 1000); // Toutes les 5 minutes si la page est visible
+        
+        // Exposer les fonctions nécessaires globalement
+        window.toggleBlogAdmin = toggleBlogAdmin;
+        window.toggleTestimonialAdmin = toggleTestimonialAdmin;
+    </script>
+    
+</body>
+</html>
