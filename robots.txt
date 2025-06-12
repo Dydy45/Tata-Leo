@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Empêche l’indexation des fichiers sensibles ou techniques
+Disallow: /assets/
+Disallow: /mon_favicon/
+
+# Indique où trouver le sitemap
+Sitemap: https://tata-leo.com/sitemap.xml
