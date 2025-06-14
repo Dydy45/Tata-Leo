@@ -233,12 +233,6 @@ Du goût, de l’énergie, de la pureté.</p>
         </div>
         
         <div class="form-group">
-          <label for="client-photo">URL de la photo (optionnel)</label>
-          <input type="url" id="client-photo" placeholder="https://exemple.com/photo.jpg">
-          <div class="form-error"></div>
-        </div>
-        
-        <div class="form-group">
           <label for="client-note">Note (1 à 5 étoiles)</label>
           <select id="client-note" required>
             <option value="">Sélectionnez une note</option>
@@ -450,15 +444,6 @@ Du goût, de l’énergie, de la pureté.</p>
         
         // Couleurs d'overlay pour les articles
         const overlayColors = ['indigo', 'blue', 'green', 'purple'];
-        
-        // Avatars par défaut pour les témoignages
-        const defaultAvatars = [
-            'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-            'https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=150&h=150&fit=crop&crop=face',
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
-            'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&h=150&fit=crop&crop=face',
-            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face'
-        ];
         
         // ========== FONCTIONS PARTAGÉES ==========
         
@@ -739,22 +724,6 @@ Du goût, de l’énergie, de la pureté.</p>
                 }
             });
             
-            // Validation spéciale pour l'URL de photo
-            const photoUrl = document.getElementById('client-photo');
-            if (photoUrl) {
-                const photoFormGroup = photoUrl.closest('.form-group');
-                const photoErrorElement = photoFormGroup ? photoFormGroup.querySelector('.form-error') : null;
-                
-                if (photoUrl.value && !isValidUrl(photoUrl.value)) {
-                    if (photoFormGroup) photoFormGroup.classList.add('error');
-                    if (photoErrorElement) photoErrorElement.textContent = 'URL de photo invalide';
-                    isValid = false;
-                } else {
-                    if (photoFormGroup) photoFormGroup.classList.remove('error');
-                    if (photoErrorElement) photoErrorElement.textContent = '';
-                }
-            }
-            
             return isValid;
         }
         
@@ -798,12 +767,10 @@ Du goût, de l’énergie, de la pureté.</p>
         
         // Fonction pour créer une carte de témoignage
         function createTestimonialCard(temoignage, index) {
-            const avatarUrl = temoignage.photo_url || defaultAvatars[index % defaultAvatars.length];
             
             return `
                 <div class="testimonial-card" data-testimonial-id="${temoignage.id}">
                     <div class="testimonial-header">
-                        <img src="${avatarUrl}" alt="${temoignage.nom}" class="client-avatar" onerror="this.src='https://via.placeholder.com/60x60/667eea/white?text=${temoignage.nom.charAt(0)}'">
                         <div class="client-info">
                             <h4>${temoignage.nom}</h4>
                             <div class="client-rating">
