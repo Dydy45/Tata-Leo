@@ -46,6 +46,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <!-- Données structurées JSON-LD -->
     <script type="application/ld+json">
@@ -404,11 +407,6 @@ Du goût, de l’énergie, de la pureté.</p>
   <button id="scrollToTopBtn" title="Retour en haut">↑</button>
   
     <!-- Tous les Scripts -->
-
-    <!-- DOMPurify ESM -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/dompurify@2.5.2/dist/purify.es.js"></script>
-    <!-- Entry point ES6 Modules -->
-    <script type="module" src="js/main.js"></script>
     
     <!-- Menu toogle -->
     <script>
@@ -439,6 +437,746 @@ Du goût, de l’énergie, de la pureté.</p>
           });
         });
     </script>
+
+    <!-- Script unifié Blog + Témoignages CORRIGÉ -->
+    <script>
+    // Configuration Supabase partagée
+    const SUPABASE_URL = 'https://pbyghuwvqagkirkwcpda.supabase.co'
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBieWdodXd2cWFna2lya3djcGRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk0NzYxNDQsImV4cCI6MjA2NTA1MjE0NH0.hfwb9xzsh4m3I1Qkf_SGY8VeTNEZDWliIzl4w8Frmfg'
+    
+    // Initialisation Supabase partagée
+    const { createClient } = supabase
+    const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+    
+    // Cache partagé
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+    
+    // Cache pour les articles
+    let articlesCache = null;
+    let lastArticlesCacheTime = null;
+    
+    // Cache pour les témoignages
+    let temoignagesCache = null;
+    let lastTemoignagesCacheTime = null;
+    
+    // Couleurs d'overlay pour les articles
+    const overlayColors = ['indigo', 'blue', 'green', 'purple'];
+    
+    // Évitez les conflits globaux
+    (() => {
+      // --- Sélecteurs du DOM ---
+      const container   = document.getElementById('blog-container');
+      const panel       = document.getElementById('article-panel');
+      const backdrop    = document.getElementById('panel-backdrop');
+      const btnClose    = document.getElementById('panel-close');
+      const imgEl       = document.getElementById('panel-image');
+      const titleEl     = document.getElementById('panel-title');
+      const categoryEl  = document.getElementById('panel-category');
+      const dateElTop   = document.getElementById('panel-date');
+      const authorEl    = document.getElementById('panel-author');
+      const shareBtn    = document.getElementById('panel-share');
+      const bodyEl      = document.getElementById('panel-body');
+    
+      // --- Fonctions d’ouverture/fermeture ---
+      function openPanel() {
+        panel.classList.add('open');
+        backdrop.classList.add('visible');
+      }
+      function closePanel() {
+        panel.classList.remove('open');
+        backdrop.classList.remove('visible');
+      }
+      btnClose.addEventListener('click', closePanel);
+      backdrop.addEventListener('click', closePanel);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && panel.classList.contains('open')) {
+          closePanel();
+        }
+      });
+    
+      // --- Utilitaire de formatage de date ---
+      function formatDateISO(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString('fr-FR', {
+          year:  'numeric',
+          month: 'long',
+          day:   'numeric'
+        });
+      }
+    
+      // --- Fonction principale : affiche l’article dans le panneau ---
+      async function showArticle(id) {
+        // Essayer depuis le cache
+        let article = Array.isArray(window.articlesCache)
+          ? window.articlesCache.find(a => a.id === id)
+          : null;
+    
+        // Si pas trouvé, fetch Supabase
+        if (!article) {
+          const { data, error } = await supabaseClient
+            .from('articles')
+            .select('*')
+            .eq('id', id)
+            .single();
+          if (error) {
+            console.error('Erreur fetch article :', error);
+            return;
+          }
+          article = data;
+        }
+    
+        // Remplir le panneau
+        imgEl.src             = article.image_url;
+        imgEl.alt             = article.titre;
+        categoryEl.textContent = article.categories;
+        dateElTop.textContent  = formatDateISO(article.date_publication);
+        titleEl.textContent    = article.titre;
+        authorEl.textContent   = article.auteur;
+        bodyEl.innerHTML       = article.contenu;
+    
+        // Préparer le bouton partager
+        shareBtn.onclick = () => {
+          const shareData = {
+            title: article.titre,
+            text: article.excerpt || '',
+            url:   `${window.location.origin}${window.location.pathname}?article=${id}`
+          };
+          if (navigator.share) {
+            navigator.share(shareData).catch(console.error);
+          } else {
+            // fallback : copie dans le presse-papier
+            navigator.clipboard.writeText(shareData.url)
+              .then(() => alert('Lien copié dans le presse-papier'))
+              .catch(console.error);
+          }
+        };
+    
+        // Ouvrir et reset scroll
+        openPanel();
+        panel.scrollTop = 0;
+      }
+    
+      // --- Délégation du clic sur « Lire la suite » ---
+      container.addEventListener('click', e => {
+        const btn = e.target.closest('.card__read-more');
+        if (!btn) return;
+    
+        const card = btn.closest('.card');
+        const id   = card && card.dataset.articleId;
+        if (!id) return console.warn("Pas d'ID Article sur la carte.");
+    
+        showArticle(id);
+      });
+    })();
+    
+    // Sélection du backdrop
+    const backdrop = document.getElementById('panel-backdrop');
+    
+    // Modifie openPanel / closePanel pour gérer aussi le backdrop
+    function openPanel() {
+      panel.classList.add('open');
+      backdrop.classList.add('visible');
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('visible');
+    }
+    
+    // Fermer au clic sur le backdrop
+    backdrop.addEventListener('click', closePanel);
+    
+    // Fermer à la touche Échap
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        closePanel();
+      }
+    });
+    
+    // Quand on ouvre un article, on scroll en haut du panneau
+    async function showArticle(id) {
+      // ... votre code de fetch ...
+      openPanel();
+      panel.scrollTop = 0;
+    }
+        
+    // ========== FONCTIONS PARTAGÉES ==========
+        
+    // Système de notifications unifié
+    function showNotification(message, type = 'success') {
+        // Supprimer les notifications existantes
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notif => notif.remove());
+            
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `<i class="fas fa-${type === 'success' ? 'check' : 'exclamation-triangle'}"></i> ${message}`;
+            
+        document.body.appendChild(notification);
+            
+        // Afficher avec animation
+        setTimeout(() => notification.classList.add('show'), 100);
+            
+        // Masquer après 4 secondes
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 4000);
+    }
+        
+    // Validation d'URL partagée
+    function isValidUrl(string) {
+        try {
+            new URL(string);
+            return true;
+        } catch (_) {
+            return false;
+        }
+    }
+        
+    // Fonction de formatage de date partagée
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diffTime = Math.abs(now - date);
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+        if (diffDays === 0) return "Aujourd'hui";
+        if (diffDays === 1) return "Hier";
+        if (diffDays < 7) return `Il y a ${diffDays} jours`;
+        if (diffDays < 30) return `Il y a ${Math.floor(diffDays / 7)} semaine${Math.floor(diffDays / 7) > 1 ? 's' : ''}`;
+            
+        return date.toLocaleDateString('fr-FR', { 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+        });
+    }
+        
+    // ========== FONCTIONS BLOG ==========
+        
+    // Validation du formulaire blog
+    function validateBlogForm() {
+        const fields = [
+            { id: 'titre', message: 'Le titre est obligatoire' },
+            { id: 'contenu', message: 'Le contenu est obligatoire' },
+            { id: 'auteur', message: 'Le nom de l\'auteur est obligatoire' },
+            { id: 'categorie', message: 'Veuillez sélectionner une catégorie' }
+        ];
+            
+        let isValid = true;
+            
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (!element) {
+                console.warn(`Élément ${field.id} non trouvé`);
+                return;
+            }
+                
+            const formGroup = element.closest('.form-group');
+            const errorElement = formGroup ? formGroup.querySelector('.form-error') : null;
+                
+            if (!element.value.trim()) {
+                if (formGroup) formGroup.classList.add('error');
+                if (errorElement) errorElement.textContent = field.message;
+                isValid = false;
+            } else {
+                if (formGroup) formGroup.classList.remove('error');
+                if (errorElement) errorElement.textContent = '';
+            }
+        });
+            
+        // Validation spéciale pour l'URL d'image
+        const imageUrl = document.getElementById('image-url');
+        if (imageUrl) {
+            const imageFormGroup = imageUrl.closest('.form-group');
+            const imageErrorElement = imageFormGroup ? imageFormGroup.querySelector('.form-error') : null;
+                
+            if (imageUrl.value && !isValidUrl(imageUrl.value)) {
+                if (imageFormGroup) imageFormGroup.classList.add('error');
+                if (imageErrorElement) imageErrorElement.textContent = 'URL d\'image invalide';
+                isValid = false;
+            } else {
+                if (imageFormGroup) imageFormGroup.classList.remove('error');
+                if (imageErrorElement) imageErrorElement.textContent = '';
+            }
+        }
+            
+        return isValid;
+    }
+        
+    // Fonction pour basculer l'affichage du formulaire admin blog
+    function toggleBlogAdmin() {
+        const form = document.getElementById('article-form');
+        const button = document.querySelector('.blog-admin-toggle');
+            
+        if (!form || !button) {
+            console.error('Éléments du formulaire blog non trouvés');
+            return;
+        }
+            
+        if (form.classList.contains('active')) {
+            form.classList.remove('active');
+            button.innerHTML = '<i class="fas fa-plus"></i> Ajouter un article';
+            // Réinitialiser les erreurs de validation
+            form.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+                const errorEl = group.querySelector('.form-error');
+                if (errorEl) errorEl.textContent = '';
+            });
+        } else {
+            form.classList.add('active');
+            button.innerHTML = '<i class="fas fa-times"></i> Fermer';
+        }
+    }
+        
+    // Fonction pour créer une carte d'article
+    function createArticleCard(article, index) {
+        const overlayClass = overlayColors[index % overlayColors.length];
+        const imageUrl = article.image_url || `https://picsum.photos/400/300?random=${article.id}`;
+            
+        // Limiter l'extrait à 150 caractères proprement
+        const excerpt = article.contenu.length > 150 
+            ? article.contenu.substring(0, 150).trim() + '...' 
+            : article.contenu;
+            
+        return `
+            <div class="card" data-article-id="${article.id}">
+                <div class="card__image">
+                    <img src="${imageUrl}" alt="${article.titre}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x300/667eea/white?text=Image+indisponible'">
+                    <div class="card__overlay card__overlay--${overlayClass}">
+                        <div class="card__overlay-content">
+                            <ul class="card__meta">
+                                <li><a href="#0"><i class="fa fa-tag"></i> ${article.categorie}</a></li>
+                                <li><a href="#0"><i class="fa fa-clock-o"></i> ${formatDate(article.date_publication)}</a></li>
+                            </ul>
+                            <a href="#0" class="card__title">${article.titre}</a>
+                            <ul class="card__meta card__meta--last">
+                                <li><a href="#0"><i class="fa fa-user"></i> ${article.auteur}</a></li>
+                                <li><a href="#0"><i class="fa fa-share"></i> Partager</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__content">
+                    <p class="card__excerpt">${excerpt}</p>
+                    <a href="#0" class="card__read-more">Lire la suite <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        `;
+    }
+        
+    // Fonction pour charger les articles depuis Supabase
+    async function chargerArticles(forceRefresh = false) {
+        // Vérifier le cache
+        if (!forceRefresh && articlesCache && lastArticlesCacheTime && 
+            (Date.now() - lastArticlesCacheTime) < CACHE_DURATION) {
+            afficherArticles(articlesCache);
+            return;
+        }
+            
+        try {
+            const loadingEl = document.getElementById('loading');
+            const errorEl = document.getElementById('error');
+                
+            if (loadingEl) loadingEl.style.display = 'block';
+            if (errorEl) errorEl.style.display = 'none';
+                
+            const { data, error } = await supabaseClient
+                .from('articles')
+                .select('*')
+                .order('date_publication', { ascending: false });
+                
+            if (error) throw error;
+                
+            // Mettre à jour le cache
+            articlesCache = data;
+            lastArticlesCacheTime = Date.now();
+                
+            afficherArticles(data);
+                
+        } catch (error) {
+            console.error('Erreur lors du chargement des articles:', error);
+            const errorMessageEl = document.getElementById('error-message');
+            const errorEl = document.getElementById('error');
+                
+            if (errorMessageEl) {
+                errorMessageEl.textContent = 'Impossible de charger les articles. Vérifiez votre connexion et réessayez.';
+            }
+            if (errorEl) errorEl.style.display = 'block';
+        } finally {
+            const loadingEl = document.getElementById('loading');
+            if (loadingEl) loadingEl.style.display = 'none';
+        }
+    }
+        
+    // Fonction pour afficher les articles
+    function afficherArticles(articles) {
+        const container = document.getElementById('blog-container');
+        if (!container) return;
+            
+        if (!articles || articles.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-newspaper" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e0;"></i>
+                    <h3>Aucun article publié</h3>
+                    <p>Soyez le premier à publier un article !</p>
+                </div>
+            `;
+            return;
+        }
+            
+        // Utiliser DocumentFragment pour de meilleures performances
+        const fragment = document.createDocumentFragment();
+        const tempDiv = document.createElement('div');
+            
+        articles.forEach((article, index) => {
+            tempDiv.innerHTML = createArticleCard(article, index);
+            fragment.appendChild(tempDiv.firstElementChild);
+        });
+            
+        container.innerHTML = '';
+        container.appendChild(fragment);
+    }
+        
+    // Fonction pour ajouter un article à la liste sans recharger
+    function ajouterArticleALaListe(nouvelArticle) {
+        if (articlesCache) {
+            articlesCache.unshift(nouvelArticle);
+            afficherArticles(articlesCache);
+        }
+    }
+        
+    // ========== FONCTIONS TÉMOIGNAGES ==========
+        
+    // Validation du formulaire témoignage
+    function validateTestimonialForm() {
+        const fields = [
+            { id: 'client-nom', message: 'Le nom du client est obligatoire' }, 
+            { id: 'client-avis', message: 'Le témoignage est obligatoire' },
+            { id: 'client-note', message: 'Veuillez sélectionner une note' }
+        ];
+            
+        let isValid = true;
+            
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (!element) {
+                console.warn(`Élément ${field.id} non trouvé`);
+                return;
+            }
+                
+            const formGroup = element.closest('.form-group');
+            const errorElement = formGroup ? formGroup.querySelector('.form-error') : null;
+                
+            if (!element.value.trim()) {
+                if (formGroup) formGroup.classList.add('error');
+                if (errorElement) errorElement.textContent = field.message;
+                isValid = false;
+            } else {
+                if (formGroup) formGroup.classList.remove('error');
+                if (errorElement) errorElement.textContent = '';
+            }
+        });
+            
+        return isValid;
+    }
+        
+    // Fonction pour basculer l'affichage du formulaire admin témoignages
+    function toggleTestimonialAdmin() {
+        const form = document.getElementById('temoignage-form');
+        const button = document.querySelector('.testimonial-admin-toggle');
+            
+        if (!form || !button) {
+            console.error('Éléments du formulaire témoignage non trouvés');
+            return;
+        }
+            
+        if (form.classList.contains('active')) {
+            form.classList.remove('active');
+            button.innerHTML = '<i class="fas fa-plus"></i> Ajouter un témoignage';
+            // Réinitialiser les erreurs de validation
+            form.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+                const errorEl = group.querySelector('.form-error');
+                if (errorEl) errorEl.textContent = '';
+            });
+        } else {
+            form.classList.add('active');
+            button.innerHTML = '<i class="fas fa-times"></i> Fermer';
+        }
+    }
+        
+    // Fonction pour générer les étoiles
+    function generateStars(rating) {
+        let stars = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= rating) {
+                stars += '<span class="star">★</span>';
+            } else {
+                stars += '<span class="star empty">☆</span>';
+            }
+        }
+        return stars;
+    }
+        
+    // Fonction pour créer une carte de témoignage
+    function createTestimonialCard(temoignage, index) {
+        return `
+            <div class="testimonial-card" data-testimonial-id="${temoignage.id}">
+                <div class="testimonial-header">
+                    <div class="client-info">
+                        <h4>${temoignage.nom}</h4>
+                        <div class="client-rating">
+                            ${generateStars(temoignage.note)}
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-content">
+                    "${temoignage.avis}"
+                </div>
+                <div class="testimonial-date">
+                    ${formatDate(temoignage.date_creation)}
+                </div>
+            </div>
+        `;
+    }
+        
+    // Fonction pour charger les témoignages depuis Supabase
+    async function chargerTemoignages(forceRefresh = false) {
+        // Vérifier le cache
+        if (!forceRefresh && temoignagesCache && lastTemoignagesCacheTime && 
+            (Date.now() - lastTemoignagesCacheTime) < CACHE_DURATION) {
+            afficherTemoignages(temoignagesCache);
+            return;
+        }
+            
+        try {
+            const loadingEl = document.getElementById('temoignages-loading');
+            const errorEl = document.getElementById('temoignages-error');
+                
+            if (loadingEl) loadingEl.style.display = 'block';
+            if (errorEl) errorEl.style.display = 'none';
+                
+            const { data, error } = await supabaseClient
+                .from('temoignages')
+                .select('*')
+                .order('date_creation', { ascending: false });
+                
+            if (error) throw error;
+                
+            // Mettre à jour le cache
+            temoignagesCache = data;
+            lastTemoignagesCacheTime = Date.now();
+                
+            afficherTemoignages(data);
+                
+        } catch (error) {
+            console.error('Erreur lors du chargement des témoignages:', error);
+            const errorMessageEl = document.getElementById('temoignages-error-message');
+            const errorEl = document.getElementById('temoignages-error');
+                
+            if (errorMessageEl) {
+                errorMessageEl.textContent = 'Impossible de charger les témoignages. Vérifiez votre connexion et réessayez.';
+            }
+            if (errorEl) errorEl.style.display = 'block';
+        } finally {
+            const loadingEl = document.getElementById('temoignages-loading');
+            if (loadingEl) loadingEl.style.display = 'none';
+        }
+    }
+        
+    // Fonction pour afficher les témoignages
+    function afficherTemoignages(temoignages) {
+        const container = document.getElementById('temoignages-list');
+        if (!container) return;
+            
+        if (!temoignages || temoignages.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-comments" style="font-size: 3rem; margin-bottom: 1rem; color: #cbd5e0;"></i>
+                    <h3>Aucun témoignage pour le moment</h3>
+                    <p>Soyez le premier à partager votre expérience !</p>
+                </div>
+            `;
+            return;
+        }
+            
+        // Utiliser DocumentFragment pour de meilleures performances
+        const fragment = document.createDocumentFragment();
+        const tempDiv = document.createElement('div');
+            
+        temoignages.forEach((temoignage, index) => {
+            tempDiv.innerHTML = createTestimonialCard(temoignage, index);
+            fragment.appendChild(tempDiv.firstElementChild);
+        });
+            
+        container.innerHTML = '';
+        container.appendChild(fragment);
+    }
+        
+    // Fonction pour ajouter un témoignage à la liste sans recharger
+    function ajouterTemoignageALaListe(nouveauTemoignage) {
+        if (temoignagesCache) {
+            temoignagesCache.unshift(nouveauTemoignage);
+            afficherTemoignages(temoignagesCache);
+        }
+    }
+        
+    // ========== INITIALISATION ET EVENT LISTENERS ==========
+        
+    // Gestion du formulaire d'ajout d'article
+    function initBlogForm() {
+        const blogForm = document.getElementById('article-form');
+        if (!blogForm) {
+            console.warn('Formulaire article non trouvé');
+            return;
+        }
+            
+        blogForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Soumission du formulaire blog');
+                
+            if (!validateBlogForm()) {
+                showNotification('Veuillez corriger les erreurs dans le formulaire', 'error');
+                return;
+            }
+                
+            const submitBtn = blogForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+                
+            try {
+                // Désactiver le bouton pendant l'envoi
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+                
+                const formData = {
+                    titre: document.getElementById('titre').value.trim(),
+                    contenu: document.getElementById('contenu').value.trim(),
+                    auteur: document.getElementById('auteur').value.trim(),
+                    image_url: document.getElementById('image-url').value.trim() || null,
+                    categorie: document.getElementById('categorie').value,
+                    date_publication: new Date().toISOString()
+                };
+                
+                console.log('Données à envoyer:', formData);
+                
+                const { data, error } = await supabaseClient
+                    .from('articles')
+                    .insert([formData])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                showNotification('Article publié avec succès !', 'success');
+                blogForm.reset();
+                toggleBlogAdmin();
+                
+                // Ajouter l'article à la liste sans recharger toute la page
+                ajouterArticleALaListe(data);
+                
+            } catch (error) {
+                console.error('Erreur lors de la publication:', error);
+                showNotification('Erreur lors de la publication. Réessayez.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+        
+    // Gestion du formulaire d'ajout de témoignage
+    function initTestimonialForm() {
+        const testimonialForm = document.getElementById('temoignage-form');
+        if (!testimonialForm) {
+            console.warn('Formulaire témoignage non trouvé');
+            return;
+        }
+            
+        testimonialForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Soumission du formulaire témoignage');
+                
+            if (!validateTestimonialForm()) {
+                showNotification('Veuillez corriger les erreurs dans le formulaire', 'error');
+                return;
+            }
+                
+            const submitBtn = testimonialForm.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+                
+            try {
+                // Désactiver le bouton pendant l'envoi
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+                
+                const formData = {
+                    nom: document.getElementById('client-nom').value.trim(),
+                    avis: document.getElementById('client-avis').value.trim(),                        note: parseInt(document.getElementById('client-note').value),
+                    date_creation: new Date().toISOString()
+                };
+                
+                console.log('Données témoignage à envoyer:', formData);
+                
+                const { data, error } = await supabaseClient
+                    .from('temoignages')
+                    .insert([formData])
+                    .select()
+                    .single();
+                
+                if (error) throw error;
+                
+                showNotification('Témoignage ajouté avec succès ! Merci pour votre retour.', 'success');
+                testimonialForm.reset();
+                toggleTestimonialAdmin();
+                
+                // Ajouter le témoignage à la liste sans recharger toute la page
+                ajouterTemoignageALaListe(data);
+                
+            } catch (error) {
+                console.error('Erreur lors de l\'ajout du témoignage:', error);
+                showNotification('Erreur lors de l\'envoi. Réessayez.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+        
+    // Gestion des erreurs d'images
+    document.addEventListener('error', (e) => {
+        if (e.target.tagName === 'IMG') {
+            e.target.src = 'https://via.placeholder.com/400x300/667eea/white?text=Image+indisponible';
+        }
+    }, true);
+        
+    // Chargement initial et initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('DOM chargé, initialisation...');
+            
+        // Charger les données
+        chargerArticles();
+        chargerTemoignages();
+            
+        // Initialiser les formulaires
+        initBlogForm();
+        initTestimonialForm();
+            
+        console.log('Initialisation terminée');
+    });
+        
+    // Rafraîchissement périodique (optionnel)
+    setInterval(() => {
+        if (document.visibilityState === 'visible') {
+            chargerArticles();
+            chargerTemoignages();
+        }
+    }, 5 * 60 * 1000); // Toutes les 5 minutes si la page est visible
+        
+    // Exposer les fonctions nécessaires globalement
+    window.toggleBlogAdmin = toggleBlogAdmin;
+    window.toggleTestimonialAdmin = toggleTestimonialAdmin;
+</script>
     
 </body>
 </html>
