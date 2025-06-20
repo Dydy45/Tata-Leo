@@ -687,6 +687,7 @@ body {
   color: #666;
   line-height: 1.6;
   margin-bottom: 1rem;
+  white-space: pre-line;
 }
 
 .card__read-more {
@@ -870,6 +871,7 @@ body {
 #panel-body {
   color: #666;                             /* même couleur que .card__excerpt */
   line-height: 1.6;
+  white-space: pre-line;
 }
 
 /* Liens à l’intérieur du panneau */
@@ -911,7 +913,7 @@ body {
   letter-spacing: 1px;
 }
 .article-category::before {
-  content: "Catégorie : ";
+  content: " ";
   font-weight: bold;
 }
 .article-date::before {
