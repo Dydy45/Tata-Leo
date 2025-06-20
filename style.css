@@ -913,7 +913,7 @@ body {
   letter-spacing: 1px;
 }
 .article-category::before {
-  content: " ";
+  content: " Catégorie : ";
   font-weight: bold;
 }
 .article-date::before {
